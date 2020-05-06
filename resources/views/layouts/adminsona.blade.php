@@ -103,13 +103,13 @@
                     </div>
                     <div class="col-lg-7">
                         <div class="tn-right">
-                            <div class="top-social">
+                            <!-- <div class="top-social">
                                 <a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
                                 <a href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
                                 <a href="https://www.tripadvisor.com.my/"><i class="fa fa-tripadvisor"></i></a>
                                 <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <a href="#" class="bk-btn">Booking Now</a>
+                            <a href="#" class="bk-btn">Booking Now</a> -->
                         <!-- <div class="language-option">
                                 <img src="{{ asset('img/flag.jpg') }}" alt="">
                                 <span>EN <i class="fa fa-angle-down"></i></span>
@@ -155,7 +155,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="adminEditRoom">
+                            <a href="{{route('adminEditRoom.index')}}">
                                 <img src="{{ asset('img/logo.png') }}" alt="">
                             </a>
                         </div>
@@ -166,9 +166,10 @@
                                 <ul>
                                     <!-- request::is('') == url pattern -->
                                     <!-- request::routeIs('') == route name pattern-->
-                                    <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Home</a></li>
-                                    <!-- <li class="{{ Request::routeIs('rooms') ? 'active' : '' }}"><a href="{{route('rooms')}}">Status</a></li> -->
-                                    <!-- <li class="{{ Request::is('about_us*') ? 'active' : '' }}"><a href="{{route('about_us')}}">About Us</a></li> -->
+                                    <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Room</a></li>
+                                    <li class="{{ Request::routeIs('addDataIndex') ? 'active' : '' }}"><a href="{{route('addDataIndex')}}">Add</a></li>
+                                    <li class="{{ Request::routeIs('adminCustomerBooking') ? 'active' : '' }}"><a href="{{route('adminCustomerBooking')}}">Customer's Order</a></li>
+                                    <li class="{{ Request::routeIs('promotion') ? 'active' : '' }}"><a href="{{route('promotion')}}">Promotion</a></li>
                                     <!-- <li class="{{ Request::is('blog_details*') ? 'active' : '' }}"><a href="{{route('blog_details')}}">Pages</a>
                                         <ul class="dropdown">
                                             <li class="{{ Request::is('blog_details*') ? 'active' : '' }}"><a href="{{route('blog_details')}}">Blog Details</a></li>
@@ -178,7 +179,7 @@
                                         </ul>
                                     </li> -->
                                     <!-- <li class="{{ Request::is('blogs*') ? 'active' : '' }}"><a href="{{route('blogs')}}">Blog</a></li>
-                                    <li class="{{ Request::is('contact*') ? 'active' : '' }}"><a href="{{route('contact')}}">Contact</a></li> -->
+                                     -->
                                 </ul>
                             </nav>
                             <div class="nav-right search-switch">
@@ -248,7 +249,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <ul>
-                            <li><a href="{{route('contact')}}">Contact</a></li>
+                            <li><a href="#">Contact</a></li>
                             <li><a href="#">Terms of use</a></li>
                             <li><a href="#">Privacy</a></li>
                             <li><a href="#">Environmental Policy</a></li>

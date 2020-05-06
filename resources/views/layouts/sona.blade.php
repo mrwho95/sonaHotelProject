@@ -135,7 +135,7 @@
                                 <div class="flag-dropdown">
                                     <ul>
                                         <li><a href="{{route('profile')}}">My Profile</a></li>
-                                        <li><a href="#">My Bookings</a></li>
+                                        <li><a href="{{route('myBooking')}}">My Bookings</a></li>
                                         <li><a href="#">Inbox</a></li>
                                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -181,7 +181,7 @@
                                         </ul>
                                     </li> -->
                                     <li class="{{ Request::is('blogs*') ? 'active' : '' }}"><a href="{{route('blogs')}}">Blog</a></li>
-                                    <li class="{{ Request::is('contact*') ? 'active' : '' }}"><a href="{{route('contact')}}">Contact</a></li>
+                                    <li class="{{ Request::is('review*') ? 'active' : '' }}"><a href="{{route('review')}}">Review</a></li>
                                 </ul>
                             </nav>
                             <div class="nav-right search-switch">
@@ -251,7 +251,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <ul>
-                            <li><a href="{{route('contact')}}">Contact</a></li>
+                            <li><a href="{{route('about_us')}}">About Us</a></li>
                             <li><a href="#">Terms of use</a></li>
                             <li><a href="#">Privacy</a></li>
                             <li><a href="#">Environmental Policy</a></li>

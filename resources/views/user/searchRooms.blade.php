@@ -36,7 +36,7 @@
 					<div class="col-lg-7 px-3">
 						<div class="card-block px-3">
 							<h4 class="card-title">{{$value->name}}</h4>
-							<p class="card-text">{{$value->price}} MYR</p>
+							<p class="card-text">{{$value->price}} MYR /Per Night</p>
 							<p class="card-text">{{$value->size}}</p>
 							<p class="card-text">{{$value->service}}</p>
 							<a href="{{route('roomDetails', $value->id)}}" class="btn btn-info">Interest</a>

@@ -57,9 +57,11 @@ class HomeController extends Controller
         return view('user.blogs');
     }
 
-    public function contact()
+    public function review()
     {
-        return view('user.contact');
+        $room = DB::table('rooms')->get();
+        $array['room'] = $room;
+        return view('user.review', $array);
     }
 
     public function roomDetails()
@@ -90,12 +92,26 @@ class HomeController extends Controller
         //     'guest' => 'required',
         //     'dateOut' => 'required'
         // ]);
+        
+        if ($request->input('dateIn') && $request->input('dateOut')) {
+            $date1 = date_create($request->input('dateIn'));
+            $date2 = date_create($request->input('dateOut'));
+            $dateIn = date_format($date1, "m-d-Y");
+            $dateOut = date_format($date2, "m-d-Y");
+            $dateDiff = strtotime($dateOut) - strtotime($dateIn);
+            $night = abs(round($dateDiff / 86400));
+            if ($night > 1) {
+                $durationOfDate = ($night+1)." days ".$night." nights";
+            }else{
+                $durationOfDate = ($night+1)." days ".$night." night";
+            }
+        }
 
         if (Auth::check()) {
             if ($request->input('dateIn')) {
                   DB::table('customersearches')->updateOrInsert(
                 ['user_id' => Auth::id()],
-                ['dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'range'=>$durationOfDate, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
                 $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
@@ -107,7 +123,7 @@ class HomeController extends Controller
 
             DB::table('device_users')->updateOrInsert(
                 ['remoteAddress' => $ip],
-                ['name' => 'anonymous', 'dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['name' => 'anonymous', 'dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
             $searchData = DB::table('device_users')->where('remoteAddress', $ip)->first();

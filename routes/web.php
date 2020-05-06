@@ -38,9 +38,15 @@ Route::get('/roomDetails/{id}', 'User\roomDetailsController@index')->name('roomD
 
 Route::get('/roomReserve/{id}', 'User\roomDetailsController@roomReserve')->name('roomReserve');
 
+Route::get('/roomReservePromoProcess/{id}', 'User\roomDetailsController@promo')->name('promo.store');
+
+Route::get('/myBooking', 'User\bookingController@index')->name('myBooking');
+
+Route::get('/roomBookingProcess/{id}', 'User\bookingController@bookingProcess')->name('bookingProcess');
+
 Route::get('/blogs', 'HomeController@blogs')->name('blogs');
 
-Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/review', 'HomeController@review')->name('review');
 
 Route::get('/profile', 'User\profileController@index')->name('profile');
 
@@ -62,3 +68,15 @@ Route::resource('contactcustomer', 'User\contactCustomerController');
 // Route::post('/adminUpload', 'Admin\HomeController@upload')->name('adminUpload');
 
 Route::resource('adminEditRoom', 'Admin\RoomController');
+
+Route::get('/adminAddData', 'Admin\RoomController@addDataIndex')->name('addDataIndex');
+
+Route::get('/adminPromotion', 'Admin\promoCodeController@index')->name('promotion');
+
+Route::post('/adminPromotion', 'Admin\promoCodeController@store')->name('promotion.store');
+
+Route::get('/adminCustomerBooking', 'Admin\bookingController@index')->name('adminCustomerBooking');
+
+Route::get('/adminBookingApprove/{id}', 'Admin\bookingController@bookingApprove')->name('bookingApprove');
+
+Route::get('/adminBookingReject/{id}', 'Admin\bookingController@bookingReject')->name('bookingReject');

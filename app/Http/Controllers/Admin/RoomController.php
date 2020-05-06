@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\room;
+use App\roomcharge;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -18,6 +20,11 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function addDataIndex(){
+        return view('admin.addRoom');
+    }
+
     public function index()
     {
         $arr['data'] = room::all();
@@ -40,7 +47,7 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, room $room)
+    public function store(Request $request, room $room, roomCharge $roomcharge)
     {
         //
         $this->validate($request, [
@@ -83,7 +90,23 @@ class RoomController extends Controller
             $room->photo_3 = $filename;
         }
         $room->save();
-        return redirect()->route('adminEditRoom.index');
+
+        $serviceTaxRate = 0.06;
+        $serviceChargeRate = 0.10;
+        $price = floatval($request->price);
+
+        $serviceChargeAmount = bcmul($price, $serviceChargeRate, 2);
+        $temp_1 = bcadd($price, $serviceChargeAmount, 2);
+
+        $serviceTaxAmount = bcmul($temp_1, $serviceTaxRate, 2);
+        $totalAmount = bcadd($temp_1, $serviceTaxAmount, 2);
+
+        $roomId = DB::table('rooms')->where('name', $request->name)->value('id');
+
+        DB::table('roomcharges')->insert(
+            ['room_id' => $roomId, 'price' => $price, 'service_charge_rate' => $serviceChargeRate, 'service_charge' => $serviceChargeAmount, 'service_tax_rate' => $serviceTaxRate, 'service_tax' => $serviceTaxAmount, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+        );
+        return redirect()->route('adminEditRoom.index')->with('success', "New ".$room->name." data is added");
     }
 
     /**
@@ -163,7 +186,22 @@ class RoomController extends Controller
         }
 
         $room->save();
-        return redirect()->route('adminEditRoom.index');
+
+        $serviceTaxRate = 0.06;
+        $serviceChargeRate = 0.10;
+        $price = floatval($request->price);
+        $serviceChargeAmount = bcmul($price, $serviceChargeRate, 2);
+        $temp_1 = bcadd($price, $serviceChargeAmount, 2);
+
+        $serviceTaxAmount = bcmul($temp_1, $serviceTaxRate, 2);
+        $totalAmount = bcadd($temp_1, $serviceTaxAmount, 2);
+
+        DB::table('roomcharges')->updateOrInsert(
+            ['room_id' => $id],
+            ['price' => $price, 'service_charge_rate' => $serviceChargeRate, 'service_charge' => $serviceChargeAmount, 'service_tax_rate' => $serviceTaxRate, 'service_tax' => $serviceTaxAmount, 'room_id'=> $id, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+        );
+
+        return redirect()->route('adminEditRoom.index')->with('success', "Edit ".$room->name." data successful");
     }
 
     /**

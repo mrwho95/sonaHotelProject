@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerReviewsTable extends Migration
+class CreateHotelinfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateCustomerReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_reviews', function (Blueprint $table) {
+        Schema::create('hotelinfos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('room_name');
-            $table->double('rating', 8, 2);
-            $table->string('message');
+            $table->string('phonenumber');
+            $table->string('address');
+            $table->string('facebookurl');
+            $table->string('twitterurl');
+            $table->string('tripadvisorurl');
+            $table->string('instagramurl');
+            $table->string('youtubeurl');
             $table->timestamps();
         });
     }
@@ -33,6 +35,6 @@ class CreateCustomerReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_reviews');
+        Schema::dropIfExists('hotelinfos');
     }
 }

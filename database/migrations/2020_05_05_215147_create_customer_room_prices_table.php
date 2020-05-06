@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomersearchesTable extends Migration
+class CreateCustomerRoomPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateCustomersearchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('customersearches', function (Blueprint $table) {
+        Schema::create('customer_room_prices', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('dateIn');
-            $table->string('dateOut');
-            $table->integer('duration');
-            $table->string('range');
-            $table->string('guest');
+            $table->double('price_amount', 8, 2);
+            $table->double('service_charge_amount', 8, 2);
+            $table->double('service_tax_amount', 8, 2);
+            $table->double('promo_amount', 8, 2);
+            $table->double('total_amount', 8, 2);
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateCustomersearchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customersearches');
+        Schema::dropIfExists('customer_room_prices');
     }
 }
