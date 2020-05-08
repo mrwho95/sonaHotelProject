@@ -95,3 +95,23 @@ Route::get('/adminCustomerBooking', 'Admin\bookingController@index')->name('admi
 Route::get('/adminBookingApprove/{id}', 'Admin\bookingController@bookingApprove')->name('bookingApprove');
 
 Route::get('/adminBookingReject/{id}', 'Admin\bookingController@bookingReject')->name('bookingReject');
+
+
+// Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware('auth')->group(function(){
+	//namespace('Admin') == Admin folder inside controller folder
+	//prefix('admin') == url ('admin/'), ('admin/categories'), ('admin/news') url of the prefix
+	//as('admin') == name('admin.home') || name of the route prefix
+	//middleware('auth') == all public contrust function middleware('auth') can be clear from all controller under admin floder controller. Because here set auth middleware in route group.
+
+	//example
+	// Route::get('/', 'homeController@index')->name('home');
+	// Route::resource('/categories', 'categoriesController');
+	// Route::resource('/news', 'newsController');
+
+	// original
+	// Route::get('/admin', 'Admin\homeController@index')->name('admin.home');
+	// Route::resource('/admin/categories', 'Admin\categoriesController', ['as'=>'admin']);
+	// Route::resource('/admin/news', 'Admin\newsController', ['as' => 'admin']);
+
+	//resource controller don't have @index etc
+// });
