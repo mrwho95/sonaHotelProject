@@ -17,6 +17,8 @@ class CreateCustomerRoomPricesTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('room_id')->unsigned();
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->double('price_amount', 8, 2);
             $table->double('service_charge_amount', 8, 2);
             $table->double('service_tax_amount', 8, 2);

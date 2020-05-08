@@ -173,19 +173,19 @@
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="card">
-						<img src="{{asset('img/payment/card.jpg')}}" alt="Credit card">
+						<a href="{{route('creditCard', $room->id)}}"><img src="{{asset('img/payment/card.jpg')}}" alt="Credit card"></a>
 						<p class="card-text text-center">Credit Card</p>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
-						<img src="{{asset('img/payment/online.jpg')}}" alt="Online banking">
+						<a href="{{route('creditCard', $room->id)}}"><img src="{{asset('img/payment/online.jpg')}}" alt="Online banking"></a>
 						<p class="card-text text-center">Online Banking</p>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
-						<img src="{{asset('img/payment/cash.jpg')}}" alt="Cash">
+						<a href="{{route('creditCard', $room->id)}}"><img src="{{asset('img/payment/cash.jpg')}}" alt="Cash"></a>
 						<p class="card-text text-center">Cash</p>
 					</div>
 				</div>

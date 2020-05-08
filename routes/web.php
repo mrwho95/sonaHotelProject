@@ -60,6 +60,13 @@ Route::get('/profile', 'User\profileController@index')->name('profile');
 
 Route::post('/profile', 'User\profileController@update')->name('profile.update');
 
+Route::get('/creditCardPayment/{id}', 'User\paymentController@creditCard')->name('creditCard');
+
+// Route::get('/creditCardPayment', 'User\paymentController@creditCard')->name('creditCard');
+
+// Route::get('/creditCardPayment', 'User\paymentController@creditCard')->name('creditCard');
+
+
 Route::get('/contactcustomer', 'User\contactCustomerController@index')->name('contactcustomer');
 
 // Route::get('/contactcustomer/details/{id}', 'User\contactCustomerController@details')->name('contactcustomerdetails');
