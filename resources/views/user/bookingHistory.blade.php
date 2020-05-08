@@ -143,6 +143,7 @@
 							<!-- <a href="#" class="btn btn-success">Approve</a>
 							<a href="#" class="btn btn-danger">Reject</a> -->
 							<h5 class="card-title" style="font-weight: bold;">Status: {{$value['status']}}</h5>
+							<a href="{{route('bookingApplicationForm', $value['booking_Id'])}}" class="btn btn-info">View Booking Details</a>
 						</div>
 					</div>
 				</div>

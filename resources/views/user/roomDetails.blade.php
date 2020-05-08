@@ -52,11 +52,13 @@
                                 <h3>{{$room->name}}</h3>
                                 <div class="rdt-right">
                                     <div class="rating">
+                                        <!-- <i class="icon_star"></i>
                                         <i class="icon_star"></i>
                                         <i class="icon_star"></i>
                                         <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star-half_alt"></i>
+                                        <i class="icon_star-half_alt"></i> -->
+                                        <div class="rateyo" id="rating" data-rateyo-rating="{{$averageRating}}" data-rateyo-num-stars="5" data-rateyo-score="3">
+                                        </div>
                                     </div>
                                     <a href="{{route('roomReserve', $room->id)}}">Reserve</a>
                                 </div>
@@ -85,10 +87,7 @@
                             <p class="f-para">Motorhome or Trailer that is the question for you. Here are some of the
                                 advantages and disadvantages of both, so you will be confident when purchasing an RV.
                                 When comparing Rvs, a motorhome or a travel trailer, should you buy a motorhome or fifth
-                                wheeler? The advantages and disadvantages of both are studied so that you can make your
-                                choice wisely when purchasing an RV. Possessing a motorhome or fifth wheel is an
-                                achievement of a lifetime. It can be similar to sojourning with your residence as you
-                                search the various sites of our great land, America.</p>
+                                wheeler?</p>
                             <p>The two commonly known recreational vehicle classes are the motorized and towable.
                                 Towable rvs are the travel trailers and the fifth wheel. The rv travel trailer or fifth
                                 wheel has the attraction of getting towed by a pickup or a car, thus giving the
@@ -98,71 +97,87 @@
                     </div>
                     <div class="rd-reviews">
                         <h4>Reviews</h4>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="{{ asset('img/room/avatar/avatar-1.jpg') }}" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
+                        @if(!empty($reviewData))
+                            @foreach($reviewData as $data)
+                            <div class="review-item">
+                                <div class="ri-pic">
+                                    <img src="{{ asset('img/room/avatar/avatar-1.jpg') }}" alt="image">
                                 </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="{{ asset('img/room/avatar/avatar-2.jpg') }}" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
+                                <div class="ri-text">
+                                    <span>{{$data->created_at}}</span>
+                                    <div class="rating">
+                                        <!-- <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star-half_alt"></i> -->
+                                        <div class="rateyo" id="rating" data-rateyo-rating="{{$averageRating}}" data-rateyo-num-stars="5" data-rateyo-score="3">
+                                        </div>
+                                    </div>
+                                    <h5 style="font-weight: bold;">{{$data->room_name}}</h5>
+                                    <h6>{{$data->name}}</h6>
+                                    <p>{{$data->message}}</p>
                                 </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
                             </div>
-                        </div>
+                            @endforeach
+                            {{$reviewData->links()}} 
+                        @else
+                            <p>So far no customer's review for this room type.</p>
+                        @endif
+                        
                     </div>
                     <div class="review-add">
                         <h4>Add Review</h4>
-                        <form action="#" class="ra-form" method="POST">
+                        <form action="{{route('reviewProcess')}}" class="ra-form" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="row">
+                                @if(Auth::check())
                                 <div class="col-lg-6">Name:
-                                    <input type="text" placeholder="Your Name*" name="name" value="">
+                                    <input type="text" name="user_name" value="{{$user->name}}">
                                 </div>
                                 <div class="col-lg-6">Email:
-                                    <input type="text" placeholder="Your Email*" name="email" value="">
+                                    <input type="text" name="user_email" value="{{$user->email}}">
+                                </div>
+                                <div class="col-lg-6">Room:
+                                    <input type="text" name="room_name" value="{{$room->name}}">
+                                </div>
+                                @else
+                                <div class="col-lg-6">Name:
+                                    <input type="text" placeholder="Your Name" name="user_name" value="">
+                                </div>
+                                <div class="col-lg-6">Email:
+                                    <input type="text" placeholder="Your Email" name="user_email" value="">
+                                </div>
+                                <div class="col-lg-6">Room:
+                                    <input type="text" name="room_name" value="">
+                                </div>
+                                <div class="col-lg-6">Room:
+                                    <input type="text" name="room_name" value="{{$room->name}}">
+                                </div>
+                                @endif
+                                <div class="col-lg-6">
+                                    <div>
+                                        <!-- jQuery code at app sona blade -->
+                                        <p>Rating: <span class="result">0</span></p>
+                                        <!-- <div class="rating"> -->
+                                            <div class="rateyo" id="rating" data-rateyo-rating="0" data-rateyo-num-stars="5" data-rateyo-score="3">
+                                            </div>
+                                            <input type="hidden" name="rating">
+
+                                            <!-- <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star-half_alt"></i> -->
+                                            
+                                        <!-- </div> -->
+                                    </div><br>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div>
-                                        <p>Your Rating:</p>
-                                        <div class="rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star-half_alt"></i>
-                                        </div>
-                                    </div><br>
                                     <p>Your Review:</p>
-                                    <textarea placeholder="Your Review"></textarea>
+                                    <textarea placeholder="Your Review" id="reviewMessage" name="reviewMessage"></textarea>
                                     @if(Auth::check())
-                                    <button type="submit">Submit Now</button> 
+                                    <button type="submit" name="add">Submit Now</button> 
                                     @else
                                     <a href="{{route('login')}}" class="btn btn-warning">Submit Now</a>
                                     @endif
@@ -223,4 +238,5 @@
         </div>
     </section>
     <!-- Room Details Section End -->
+
 @endsection

@@ -57,13 +57,6 @@ class HomeController extends Controller
         return view('user.blogs');
     }
 
-    public function review()
-    {
-        $room = DB::table('rooms')->get();
-        $array['room'] = $room;
-        return view('user.review', $array);
-    }
-
     public function roomDetails()
     {
         return view('user.roomDetails');

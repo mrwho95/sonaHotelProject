@@ -51,6 +51,10 @@ class bookingController extends Controller
     	$customerorder->check_in_time = $request->checkInTime;
         $customerorder->range = $customersearchData['range'];
     	$customerorder->check_out = $customersearchData['dateOut'];
+        $customerorder->price_amount = $customerRoomPriceData['price_amount'];
+        $customerorder->service_charge_amount = $customerRoomPriceData['service_charge_amount'];
+        $customerorder->service_tax_amount = $customerRoomPriceData['service_tax_amount'];
+        $customerorder->promo_amount = $customerRoomPriceData['promo_amount'];
     	$customerorder->total_amount = $customerRoomPriceData['total_amount'];
         $customerorder->status = "Pending";
     	$customerorder->save();
@@ -85,6 +89,8 @@ class bookingController extends Controller
             $order['roomPhoto_3'] = $room['photo_3'];
             $order['roomId'] = $orderValue['room_id'];
             $order['roomName'] = $room['name'];
+
+            $order['booking_Id'] = $orderValue['id'];
 
             $user = User::find($orderValue['user_id']);
             $user = json_decode(json_encode($user), true);

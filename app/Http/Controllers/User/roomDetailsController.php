@@ -23,17 +23,39 @@ class roomDetailsController extends Controller
     {
 
         if (Auth::check()) {
+            $room_name = DB::table('rooms')->where('id', $id)->value('name');
+            $rating = DB::table('customer_reviews')->where('room_name', $room_name)->pluck('rating');
+            $rating = json_decode(json_encode($rating), true);
+            if (empty($rating)) {
+                $averageRating = 0;
+            }else{
+                $averageRating = bcdiv(array_sum($rating), count($rating), 2);
+            }
+
+            $arr['reviewData'] = DB::table('customer_reviews')->where('room_name', $room_name)->orderBy('created_at', 'desc')->paginate(3);
+
             $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
             $arr['searchData'] = $searchData;
             $arr['user'] = User::find(Auth::id());
             $arr['room'] = room::find($id);
+            $arr['averageRating'] = $averageRating;
             return view('user.roomDetails', $arr);
         }
     	else{
+            $room_name = DB::table('rooms')->where('id', $id)->value('name');
+            $rating = DB::table('customer_reviews')->where('room_name', $room_name)->pluck('rating');
+            $rating = json_decode(json_encode($rating), true);
+            if (empty($rating)) {
+                $averageRating = 0;
+            }else{
+                $averageRating = bcdiv(array_sum($rating), count($rating), 2);
+            }
+
             $ip=$_SERVER['REMOTE_ADDR'];
             $searchData = DB::table('device_users')->where('remoteAddress', $ip)->first();
             $arr['searchData'] = $searchData;
             $arr['room'] = room::find($id);
+            $arr['averageRating'] = $averageRating;
     	   return view('user.roomDetails', $arr);
         }
 

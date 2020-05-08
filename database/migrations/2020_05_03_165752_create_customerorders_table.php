@@ -28,6 +28,10 @@ class CreateCustomerordersTable extends Migration
             $table->string('check_in_time')->nullable();
             $table->string('range');
             $table->string('check_out');
+            $table->double('price_amount', 8, 2);
+            $table->double('service_charge_amount', 8, 2);
+            $table->double('service_tax_amount', 8, 2);
+            $table->double('promo_amount', 8, 2)->nullable();
             $table->double('total_amount', 8, 2);
             $table->string('promocode')->nullable();
             $table->string('status');

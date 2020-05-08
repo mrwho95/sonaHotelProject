@@ -9,7 +9,7 @@
                         <h1>Sona A Luxury Hotel</h1>
                         <p>Here are the best hotel booking sites, including recommendations for international
                             travel and for finding low-priced hotel rooms.</p>
-                        <a href="#" class="primary-btn">Discover Now</a>
+                        <a href="{{route('blogs')}}" class="primary-btn">Discover Now</a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
@@ -83,7 +83,7 @@
                             languages.</p>
                         <p class="s-para">So when it comes to booking the perfect hotel, vacation rental, resort,
                             apartment, guest house, or tree house, we’ve got you covered.</p>
-                        <a href="#" class="primary-btn about-btn">Read More</a>
+                        <a href="{{route('about_us')}}" class="primary-btn about-btn">Read More</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -199,7 +199,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <a href="#" class="primary-btn">More Details</a>
+                                <a href="{{route('roomDetails', $roomData->id)}}" class="primary-btn">More Details</a>
                             </div>
                         </div>
                     </div>
@@ -266,7 +266,7 @@
     <!-- Testimonial Section End -->
 
     <!-- Blog Section Begin -->
-    <section class="blog-section spad">
+    <!-- <section class="blog-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -324,6 +324,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Blog Section End -->
 @endsection

@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- rating -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <!-- Css Styles -->
@@ -112,7 +113,7 @@
                                 <a href="https://www.tripadvisor.com.my/"><i class="fa fa-tripadvisor"></i></a>
                                 <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <a href="#" class="bk-btn">Booking Now</a>
+                            <!-- <a href="#" class="bk-btn">Booking Now</a> -->
                         <!-- <div class="language-option">
                                 <img src="{{ asset('img/flag.jpg') }}" alt="">
                                 <span>EN <i class="fa fa-angle-down"></i></span>
@@ -284,7 +285,6 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
@@ -293,6 +293,23 @@
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+
+        $(function(){
+            $(".rateyo").rateYo().on("rateyo.change", function (e, data){
+                var rating = data.rating;
+                $(this).parent().find('.score').text('score: '+$(this).attr('data-rateyo-score'));
+                $(this).parent().find('.result').text(rating);
+                $(this).parent().find('input[name = rating]').val(rating);
+            });
+        });
+    </script>
+
+    
+
 </body>
 
 </html>
