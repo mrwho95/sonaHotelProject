@@ -17,8 +17,8 @@ class HomeController extends Controller
      * @return void
      */
     // public function __construct()
-    // {
-    //     $this->middleware('auth');
+    // {   for email verfication
+    //     $this->middleware(['auth', 'verified']);
     // }
 
     /**
@@ -28,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $room = DB::table('rooms')->get();
         $array['room'] = $room;
         return view('user.home', $array);

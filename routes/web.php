@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,13 +17,14 @@ use Illuminate\Support\Facades\DB;
 
 // user
 Route::get('/', function () {
+
 	$room = DB::table('rooms')->get();
 	$array['room'] = $room;
 
     return view('user.home', $array);
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -42,11 +44,17 @@ Route::get('/roomReservePromoProcess/{id}', 'User\roomDetailsController@promo')-
 
 Route::get('/myBooking', 'User\bookingController@index')->name('myBooking');
 
+Route::get('/bookingApplicationForm/{id}', 'User\pdfController@index')->name('bookingApplicationForm');
+
+Route::get('/invoicePDF/{id}', 'User\pdfController@generatePDF')->name('invoicePDF');
+
 Route::get('/roomBookingProcess/{id}', 'User\bookingController@bookingProcess')->name('bookingProcess');
 
 Route::get('/blogs', 'HomeController@blogs')->name('blogs');
 
-Route::get('/review', 'HomeController@review')->name('review');
+Route::get('/review', 'User\customerreviewController@index')->name('review');
+
+Route::post('/reviewProcess', 'User\customerreviewController@store')->name('reviewProcess');
 
 Route::get('/profile', 'User\profileController@index')->name('profile');
 
