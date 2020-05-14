@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use App\promocode;
 use App\customerPromoCode;
+use Carbon\Carbon;
 
 class roomDetailsController extends Controller
 {
@@ -35,7 +36,10 @@ class roomDetailsController extends Controller
             $arr['reviewData'] = DB::table('customer_reviews')->where('room_name', $room_name)->orderBy('created_at', 'desc')->paginate(3);
 
             $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
+            $searchData = json_decode(json_encode($searchData), true);
             $arr['searchData'] = $searchData;
+            $arr['searchData']['dateIn'] = Carbon::parse($searchData['dateIn'])->format('d-m-Y');
+            $arr['searchData']['dateOut'] = Carbon::parse($searchData['dateOut'])->format('d-m-Y');
             $arr['user'] = User::find(Auth::id());
             $arr['room'] = room::find($id);
             $arr['averageRating'] = $averageRating;
@@ -53,7 +57,10 @@ class roomDetailsController extends Controller
 
             $ip=$_SERVER['REMOTE_ADDR'];
             $searchData = DB::table('device_users')->where('remoteAddress', $ip)->first();
+            $searchData = json_decode(json_encode($searchData), true);
             $arr['searchData'] = $searchData;
+            $arr['searchData']['dateIn'] = Carbon::parse($searchData['dateIn'])->format('d-m-Y');
+            $arr['searchData']['dateOut'] = Carbon::parse($searchData['dateOut'])->format('d-m-Y');
             $arr['room'] = room::find($id);
             $arr['averageRating'] = $averageRating;
     	   return view('user.roomDetails', $arr);
@@ -70,6 +77,7 @@ class roomDetailsController extends Controller
         }else{
 
             $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
+            $searchData = json_decode(json_encode($searchData), true);
             $dayDuration = DB::table('customersearches')->where('user_id', Auth::id())->value('duration');
             $roomcharges = DB::table('roomcharges')->where('room_id', $id)->first();
             $roomcharges = json_decode(json_encode($roomcharges), true);
@@ -111,6 +119,8 @@ class roomDetailsController extends Controller
             $arr['serviceChargeAmount'] = $serviceChargeAmount;
             $arr['serviceTaxAmount'] = $serviceTaxAmount;
             $arr['searchData'] = $searchData;
+            $arr['searchData']['dateIn'] = Carbon::parse($searchData['dateIn'])->format('d/m/Y');
+            $arr['searchData']['dateOut'] = Carbon::parse($searchData['dateOut'])->format('d/m/Y');
             $arr['promoCode'] = $userInputPromoCode;
             $arr['room'] = room::find($id);
             return view('user.roomReserve', $arr);

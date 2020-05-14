@@ -8,6 +8,7 @@ use App\User;
 use Auth;
 use App\customersearch;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -86,12 +87,11 @@ class HomeController extends Controller
         //     'guest' => 'required',
         //     'dateOut' => 'required'
         // ]);
-        
+        //return Carbon::parse($request->input('dateIn'))->month;
         if ($request->input('dateIn') && $request->input('dateOut')) {
-            $date1 = date_create($request->input('dateIn'));
-            $date2 = date_create($request->input('dateOut'));
-            $dateIn = date_format($date1, "m-d-Y");
-            $dateOut = date_format($date2, "m-d-Y");
+
+            $dateIn = Carbon::parse($request->input('dateIn'));
+            $dateOut = Carbon::parse($request->input('dateOut'));
             $dateDiff = strtotime($dateOut) - strtotime($dateIn);
             $night = abs(round($dateDiff / 86400));
             if ($night > 1) {
@@ -105,27 +105,31 @@ class HomeController extends Controller
             if ($request->input('dateIn')) {
                   DB::table('customersearches')->updateOrInsert(
                 ['user_id' => Auth::id()],
-                ['dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'range'=>$durationOfDate, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'range'=>$durationOfDate, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
                 $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
                 $searchData = json_decode(json_encode($searchData), true);
                 $array['arr'] = $searchData;
+                $array['arr']['dateIn']=Carbon::parse($request->input('dateIn'))->format('d-m-Y');
+                $array['arr']['dateOut']=Carbon::parse($request->input('dateOut'))->format('d-m-Y');
             }
         }else{
             $ip=$_SERVER['REMOTE_ADDR'];
 
             DB::table('device_users')->updateOrInsert(
                 ['remoteAddress' => $ip],
-                ['name' => 'anonymous', 'dateIn' => $request->dateIn, 'dateOut'=> $request->dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['name' => 'anonymous', 'dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
             $searchData = DB::table('device_users')->where('remoteAddress', $ip)->first();
             $searchData = json_decode(json_encode($searchData), true);
             $array['arr'] = $searchData;
-            
+            $array['arr']['dateIn']=Carbon::parse($request->input('dateIn'))->format('d-m-Y');
+            $array['arr']['dateOut']=Carbon::parse($request->input('dateOut'))->format('d-m-Y');
         }
         $array['data'] = room::paginate(5);
+        
         return view('user.searchRooms', $array);
     }
 }

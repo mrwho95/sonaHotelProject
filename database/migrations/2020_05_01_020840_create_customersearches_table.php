@@ -17,8 +17,8 @@ class CreateCustomersearchesTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('dateIn');
-            $table->string('dateOut');
+            $table->datetime('dateIn');
+            $table->datetime('dateOut');
             $table->integer('duration');
             $table->string('range');
             $table->string('guest');

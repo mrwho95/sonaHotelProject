@@ -9,6 +9,7 @@ use App\room;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class bookingController extends Controller
 {
@@ -48,8 +49,8 @@ class bookingController extends Controller
     		$user = json_decode(json_encode($user), true);
     		$order['userName'] = $user['name'];
 
-    		$order['checkIn'] = $orderValue['check_in'];
-    		$order['checkOut'] = $orderValue['check_out'];
+    		$order['checkIn'] = Carbon::parse($orderValue['check_in'])->format('d/m/Y');
+    		$order['checkOut'] = Carbon::parse($orderValue['check_out'])->format('d/m/Y');
             $order['range'] = $orderValue['range'];
     		$order['totalAmount'] = $orderValue['total_amount'];
     		$order['bookingCode'] = $orderValue['booking_code'];

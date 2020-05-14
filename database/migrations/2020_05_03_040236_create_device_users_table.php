@@ -16,9 +16,11 @@ class CreateDeviceUsersTable extends Migration
         Schema::create('device_users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('dateIn');
-            $table->string('dateOut');
+            $table->datetime('dateIn');
+            $table->datetime('dateOut');
             $table->string('guest');
+            $table->string('range');
+            $table->integer('duration');
             $table->string('remoteAddress');
             $table->timestamps();
         });

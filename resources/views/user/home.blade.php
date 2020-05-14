@@ -20,7 +20,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input @if($errors->has('dateIn')) is-invalid border-danger @endif" id="date-in" name="dateIn" value="<?php echo date('d/m/Y')?>">
+                                <input type="text" class="date-input @if($errors->has('dateIn')) is-invalid border-danger @endif" id="date-in" name="dateIn" value="<?php echo date('d-m-Y')?>">
                                 <i class="icon_calendar"></i>
                                 @if($errors->has('dateIn'))
                                     <span class="text-danger"><small>{{$errors->first('dateIn')}}</small></span>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input @if($errors->has('dateOut')) is-invalid border-danger @endif" id="date-out" name="dateOut" value="<?php echo date("d/m/Y", strtotime('+1 day'))?>">
+                                <input type="text" class="date-input @if($errors->has('dateOut')) is-invalid border-danger @endif" id="date-out" name="dateOut" value="<?php echo date('d-m-Y', strtotime('+1 day'))?>">
                                 <i class="icon_calendar"></i>
                                 @if($errors->has('dateOut'))
                                     <span class="text-danger"><small>{{$errors->first('dateOut')}}</small></span>

@@ -19,10 +19,10 @@
 			<h4 class="card-title" style="font-weight: bold;">{{Auth::user()->name}} Trip</h4><br>
 			<div class="row">
 				<div class="col-lg-8">
-					<p class="card-text">Check-In: {{$searchData->dateIn}}</p>
-					<p class="card-text">Check-Out: {{$searchData->dateOut}}</p>
-					<p class="card-text">Duration: {{$searchData->range}}</p>
-					<p class="card-text">Guest: {{$searchData->guest}}</p>
+					<p class="card-text">Check-In: {{$searchData['dateIn']}}</p>
+					<p class="card-text">Check-Out: {{$searchData['dateOut']}}</p>
+					<p class="card-text">Duration: {{$searchData['range']}}</p>
+					<p class="card-text">Guest: {{$searchData['guest']}}</p>
 				</div>
 				<div class="col-lg-4">
 					<a href="{{route('roomDetails', $room->id)}}" class="btn btn-warning">Edit Trip</a>
@@ -97,7 +97,7 @@
 						</div>
 					</div>
 					<p class="card-text" style="font-weight: bold;">Let us know when you will reach and check in </p>
-					<p class="card-text">Check In Date: {{$searchData->dateIn}}</p>
+					<p class="card-text">Check In Date: {{$searchData['dateIn']}}</p>
 					<p class="card-text">Check In Time: </p>
 					<select size="10" id="checkIn" name="checkInTime" class="form-control">
 						<option value="I don't know">I don't know</option>
@@ -156,7 +156,7 @@
 						<p class="card-text" style="font-weight: bold;">Total(MYR)</p>
 					</div>
 					<div class="col-lg-4">
-						<p class="card-text text-right">{{$searchData->range}}</p>
+						<p class="card-text text-right">{{$searchData['range']}}</p>
 						<p class="card-text text-right">RM <?php echo $roomPrice; ?></p>
 						<p class="card-text text-right">RM <?php echo $serviceChargeAmount;?></p>
 						<p class="card-text text-right">RM <?php echo $serviceTaxAmount;?></p>

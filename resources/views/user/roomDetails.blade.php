@@ -194,7 +194,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="check-date">
                                     <label for="date-in">Check In:</label>
-                                    <input type="text" class="date-input @if($errors->has('dateIn')) is-invalid border-danger @endif" id="date-in" name="dateIn" value="{{$searchData->dateIn}}">
+                                    <input type="text" class="date-input @if($errors->has('dateIn')) is-invalid border-danger @endif" id="date-in" name="dateIn" value="{{$searchData['dateIn']}}">
                                     <i class="icon_calendar"></i>
                                     @if($errors->has('dateIn'))
                                         <span class="text-danger"><small>{{$errors->first('dateIn')}}</small></span>
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="check-date">
                                     <label for="date-out">Check Out:</label>
-                                    <input type="text" class="date-input @if($errors->has('dateOut')) is-invalid border-danger @endif" id="date-out" name="dateOut" value="{{$searchData->dateOut}}">
+                                    <input type="text" class="date-input @if($errors->has('dateOut')) is-invalid border-danger @endif" id="date-out" name="dateOut" value="{{$searchData['dateOut']}}">
                                     <i class="icon_calendar"></i>
                                     @if($errors->has('dateOut'))
                                         <span class="text-danger"><small>{{$errors->first('dateOut')}}</small></span>
@@ -211,7 +211,7 @@
                                 <div class="select-option">
                                     <label for="guest">Guests:</label>
                                     <select id="guest" name="guest" class="@if($errors->has('guest')) is-invalid border-danger @endif">  
-                                        <option value="{{$searchData->guest}}">{{$searchData->guest}}</option>
+                                        <option value="{{$searchData['guest']}}">{{$searchData['guest']}}</option>
                                         <option value="1 Adult">1 Adult</option>
                                         <option value="2 Adults">2 Adults</option>
                                         <option value="3 Adults">3 Adults</option>
