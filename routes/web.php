@@ -84,11 +84,11 @@ Route::resource('contactcustomer', 'User\contactCustomerController');
 
 Route::resource('adminEditRoom', 'Admin\RoomController');
 
-Route::get('/adminAddData', 'Admin\RoomController@addDataIndex')->name('addDataIndex');
+Route::get('/adminAddRoomData', 'Admin\RoomController@addDataIndex')->name('addDataIndex');
 
-Route::get('/adminPromotion', 'Admin\promoCodeController@index')->name('promotion');
+Route::get('/adminAddPromotion', 'Admin\promoCodeController@index')->name('promotion');
 
-Route::post('/adminPromotion', 'Admin\promoCodeController@store')->name('promotion.store');
+Route::post('/adminPromotionProcess', 'Admin\promoCodeController@store')->name('promotion.store');
 
 Route::get('/adminCustomerBooking', 'Admin\bookingController@index')->name('adminCustomerBooking');
 
