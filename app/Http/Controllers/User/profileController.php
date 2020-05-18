@@ -23,17 +23,23 @@ class profileController extends Controller
      */
     public function index()
     {
-    	$arr['data'] = DB::table('users')->where('email', Auth::user()->email)->first();
+    	$arr['data'] = User::find(Auth::id());
         return view('user.profile', $arr);
     }
 
     public function update(Request $request, User $user)
-    {
+    {   
+        $user = User::find(Auth::id());
     	$user->name = $request->name;
-        $user->email = $request->email;
         $user->phonenumber = $request->phonenumber;
         $user->gender = $request->gender;
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $filename = $file->getClientOriginalName();
+            $file->move('public/uploads/userPhoto/', $filename);
+            $user->userphoto = $filename;
+        }
         $user->save();
-        return redirect()->route('profile');
+        return redirect()->route('profile')->with('success', "Customer's Profile edited successful.");
     }
 }

@@ -54,19 +54,19 @@
                 @if($errors->has('photo_1'))
                 <span class="text-danger"><small>{{$errors->first('photo_1')}}</small></span>
                 @endif
-                <input type="file" name="photo_1" placeholder="Room Bed" class="@if($errors->has('photo_1')) is-invalid border-danger @endif">
+                <input type="file" name="photo_1" class="@if($errors->has('photo_1')) is-invalid border-danger @endif">
             </div>
             <div class="col-lg-4">Photo 2:
                 @if($errors->has('photo_2'))
                 <span class="text-danger"><small>{{$errors->first('photo_2')}}</small></span>
                 @endif
-                <input type="file" name="photo_2" placeholder="Room Capacity" class="@if($errors->has('photo_2')) is-invalid border-danger @endif">
+                <input type="file" name="photo_2" class="@if($errors->has('photo_2')) is-invalid border-danger @endif">
             </div>
             <div class="col-lg-4">Photo 3:
                 @if($errors->has('photo_3'))
                 <span class="text-danger"><small>{{$errors->first('photo_3')}}</small></span>
                 @endif
-                <input type="file" name="photo_3" placeholder="Room Service" class="@if($errors->has('photo_3')) is-invalid border-danger @endif">
+                <input type="file" name="photo_3" class="@if($errors->has('photo_3')) is-invalid border-danger @endif">
             </div>
             <div class="col-lg-12">Description:
             	@if($errors->has('description'))
