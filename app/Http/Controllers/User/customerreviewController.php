@@ -15,10 +15,12 @@ class customerreviewController extends Controller
 
     public function index(customerReview $customerReview, User $user)
     {
-    	if (Auth::check()) {
-    		$array['userData'] = User::find(Auth::id()); 
-    	}
+    	$array['userData'] = User::find(Auth::id()); 
+
         $array['reviewData'] = DB::table('customer_reviews')->orderBy('created_at', 'desc')->paginate(3);
+        $user = User::all();
+        $array['user'] = json_decode(json_encode($user), true);
+        // print_r($user);
         $room = DB::table('rooms')->get();
         $array['room'] = $room;
         return view('user.review', $array);
