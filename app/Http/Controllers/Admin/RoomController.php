@@ -215,6 +215,6 @@ class RoomController extends Controller
     {
         //
         room::destroy($id);
-        return redirect()->route('adminEditRoom.index');
+        return redirect()->route('adminEditRoom.index')->with('success', "Successfully Deleted");
     }
 }
