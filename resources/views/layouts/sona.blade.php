@@ -137,7 +137,7 @@
                                     <ul>
                                         <li><a href="{{route('profile')}}">My Profile</a></li>
                                         <li><a href="{{route('myBooking')}}">My Bookings</a></li>
-                                        <li><a href="#">Inbox</a></li>
+                                        <li><a href="{{route('inbox')}}">Inbox</a></li>
                                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}</a>

@@ -75,6 +75,8 @@ Route::get('/room_details', 'HomeController@roomDetails')->name('room_details');
 
 Route::get('/blog_details', 'HomeController@blogDetails')->name('blog_details');
 
+Route::get('/inbox', 'User\inboxController@index')->name('inbox');
+
 Route::resource('contactcustomer', 'User\contactCustomerController');
 
 // admin
