@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user){
         if ($user->is_admin) {
-            return redirect('adminEditRoom');
+            return redirect('adminDashboard');
         }
         return redirect('home');
     }

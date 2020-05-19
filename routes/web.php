@@ -84,6 +84,10 @@ Route::resource('contactcustomer', 'User\contactCustomerController');
 
 // Route::post('/adminUpload', 'Admin\HomeController@upload')->name('adminUpload');
 
+Route::get('/adminDashboard', 'Admin\dashboardController@index')->name('adminDashboard');
+
+Route::resource('/adminCustomer', 'Admin\customerController');
+
 Route::resource('adminEditRoom', 'Admin\RoomController');
 
 Route::get('/adminAddRoomData', 'Admin\RoomController@addDataIndex')->name('addDataIndex');
