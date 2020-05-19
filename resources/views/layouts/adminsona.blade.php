@@ -175,11 +175,13 @@
                                     <li class="{{ Request::is('adminDashboard*') ? 'active' : '' }}"><a href="{{route('adminDashboard')}}">Dashboard</a></li>
                                     <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Room</a>
                                         <ul class="dropdown">
+                                            <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Overview</a></li>
                                             <li class="{{ Request::routeIs('addDataIndex') ? 'active' : '' }}"><a href="{{route('addDataIndex')}}">Add Room</a></li>
                                         </ul>
                                     </li>
                                     <li class="{{ Request::is('adminCustomer*') ? 'active' : '' }}"><a href="{{route('adminCustomer.index')}}">Customer</a>
                                         <ul class="dropdown">
+                                            <li class="{{ Request::is('adminCustomer*') ? 'active' : '' }}"><a href="{{route('adminCustomer.index')}}">Overview</a></li>
                                             <li class="{{ Request::routeIs('adminCustomerBooking') ? 'active' : '' }}"><a href="{{route('adminCustomerBooking')}}">Booking</a></li>
                                         </ul>
                                     </li>
