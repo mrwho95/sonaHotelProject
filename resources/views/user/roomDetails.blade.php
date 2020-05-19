@@ -101,7 +101,11 @@
                             @foreach($reviewData as $data)
                             <div class="review-item">
                                 <div class="ri-pic">
-                                    <img src="{{ asset('img/room/avatar/avatar-1.jpg') }}" alt="image">
+                                    @foreach($userDataset as $key => $value)
+                                        @if($data->user_id == $value['id'])
+                                            <img src="{{ asset('uploads/userPhoto/'.$value['userphoto']) }}" alt="image">
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div class="ri-text">
                                     <span>{{$data->created_at}}</span>

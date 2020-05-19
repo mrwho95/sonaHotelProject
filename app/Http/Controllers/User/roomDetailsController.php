@@ -34,6 +34,7 @@ class roomDetailsController extends Controller
             }
 
             $arr['reviewData'] = DB::table('customer_reviews')->where('room_name', $room_name)->orderBy('created_at', 'desc')->paginate(3);
+            $arr['userDataset'] = User::all();
 
             $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
             $searchData = json_decode(json_encode($searchData), true);
