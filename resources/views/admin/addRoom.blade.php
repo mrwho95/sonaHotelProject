@@ -1,7 +1,7 @@
 @extends('layouts.adminsona')
 @section('content')
 <div class="container">
-	<h3>Promotion Code</h3><br>
+	<h3>Add New Room</h3><br>
 	@if(session('success'))
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('success')}}
