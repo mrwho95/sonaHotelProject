@@ -11,6 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sona Project</title>
 
+    <!-- datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
@@ -166,9 +169,17 @@
                                 <ul>
                                     <!-- request::is('') == url pattern -->
                                     <!-- request::routeIs('') == route name pattern-->
-                                    <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Room</a></li>
-                                    <li class="{{ Request::routeIs('addDataIndex') ? 'active' : '' }}"><a href="{{route('addDataIndex')}}">Add</a></li>
-                                    <li class="{{ Request::routeIs('adminCustomerBooking') ? 'active' : '' }}"><a href="{{route('adminCustomerBooking')}}">Customer's Order</a></li>
+                                    <li class="{{ Request::is('adminDashboard*') ? 'active' : '' }}"><a href="{{route('adminDashboard')}}">Dashboard</a></li>
+                                    <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Room</a>
+                                        <ul class="dropdown">
+                                            <li class="{{ Request::routeIs('addDataIndex') ? 'active' : '' }}"><a href="{{route('addDataIndex')}}">Add Room</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="{{ Request::is('adminCustomer*') ? 'active' : '' }}"><a href="{{route('adminCustomer.index')}}">Customer</a>
+                                        <ul class="dropdown">
+                                            <li class="{{ Request::routeIs('adminCustomerBooking') ? 'active' : '' }}"><a href="{{route('adminCustomerBooking')}}">Booking</a></li>
+                                        </ul>
+                                    </li>
                                     <li class="{{ Request::routeIs('promotion') ? 'active' : '' }}"><a href="{{route('promotion')}}">Promotion</a></li>
                                     <!-- <li class="{{ Request::is('blog_details*') ? 'active' : '' }}"><a href="{{route('blog_details')}}">Pages</a>
                                         <ul class="dropdown">
@@ -290,9 +301,48 @@
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
 
     @include('sweetalert::alert')
 
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function(){
+
+        $('#user_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('adminCustomer.index') }}",
+            },
+            columns: [
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'gender',
+                name: 'gender'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'phonenumber',
+                name: 'phonenumber'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false
+            }
+            ]
+        });
+
+    });
+</script>
