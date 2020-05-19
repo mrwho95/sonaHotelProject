@@ -19,7 +19,7 @@ class CreatePromocodesTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('discount');
-            $table->string('expired');
+            $table->datetime('expired');
             $table->bigInteger('availability');
             $table->timestamps();
         });
