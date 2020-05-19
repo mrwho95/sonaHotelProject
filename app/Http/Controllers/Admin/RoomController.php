@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\room;
 use App\roomcharge;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RoomController extends Controller
 {
@@ -201,7 +202,7 @@ class RoomController extends Controller
             ['price' => $price, 'service_charge_rate' => $serviceChargeRate, 'service_charge' => $serviceChargeAmount, 'service_tax_rate' => $serviceTaxRate, 'service_tax' => $serviceTaxAmount, 'room_id'=> $id, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
         );
 
-        return redirect()->route('adminEditRoom.index')->with('success', "Edit ".$room->name." data successful");
+        return redirect()->route('adminEditRoom.index')->with('success',"Edit ".$room->name." data successful");
     }
 
     /**

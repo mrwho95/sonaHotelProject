@@ -103,6 +103,6 @@ class bookingController extends Controller
 
         $Reject = DB::table('customerorders')->where('id', $id)->update(['status' => "Reject"]);
 
-    	return redirect()->route('adminCustomerBooking')->with('reject', 'Booking order is rejected.');
+    	return redirect()->route('adminCustomerBooking')->with('warning', 'Booking order is rejected.');
     }
 }
