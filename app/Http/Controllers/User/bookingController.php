@@ -11,6 +11,7 @@ use App\customersearch;
 use App\customerPromoCode;
 use App\customerRoomPrice;
 use App\User;
+use App\promocode;
 use Auth;
 use Carbon\Carbon;
 
@@ -21,7 +22,7 @@ class bookingController extends Controller
         $this->middleware('auth');
     }
 
-    public function bookingProcess($id, Request $request, customerorder $customerorder, room $room, customersearch $customersearch, customerPromoCode $customerPromoCode, customerRoomPrice $customerRoomPrice){
+    public function bookingProcess($id, Request $request, customerorder $customerorder, room $room, customersearch $customersearch, customerPromoCode $customerPromoCode, customerRoomPrice $customerRoomPrice, promocode $promocode){
 
     	$roomData = room::find($id);
     	$roomData = json_decode(json_encode($roomData), true);
@@ -39,6 +40,9 @@ class bookingController extends Controller
 
         if (!empty($promoCodeData)) {
             $customerorder->promocode = $promoCodeData['code'];
+            $availability = promocode::where('code', $promoCodeData['code'])->value('availability');
+            $availability--;
+            $affectedRows = promocode::where('code', $promoCodeData['code'])->update(array('availability' => $availability));
         }
 
     	$customerorder->user_id = Auth::id();

@@ -38,9 +38,9 @@
 					</button>
 				</div>
 			@endif
-			@if(session('error'))
+			@if(session('warning'))
 				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					{{session('error')}}
+					{{session('warning')}}
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    <span aria-hidden="true">&times;</span>
 					</button>
@@ -51,7 +51,7 @@
 				@method('GET')
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-lg-8">
-						@if(session('success'))
+						@if(!empty($userInputPromoCode))
 						<input type="text" name="promo_code" placeholder="Your coupon" class="form-control" value="<?php echo $promoCode;?>">
 						@else
 						<input type="text" name="promo_code" placeholder="Your coupon" class="form-control">
@@ -150,7 +150,7 @@
 						<p class="card-text">Room fee</p>
 						<p class="card-text">Service charge fee (10%)</p>
 						<p class="card-text">Service tax fee (6%)</p>
-						@if(session('success'))
+						@if(!empty($userInputPromoCode))
 						<p class="card-text">Promo code (<?php echo $promoCode;?>)</p>
 						@endif
 						<p class="card-text" style="font-weight: bold;">Total(MYR)</p>
@@ -160,7 +160,7 @@
 						<p class="card-text text-right">RM <?php echo $roomPrice; ?></p>
 						<p class="card-text text-right">RM <?php echo $serviceChargeAmount;?></p>
 						<p class="card-text text-right">RM <?php echo $serviceTaxAmount;?></p>
-						@if(session('success'))
+						@if(!empty($userInputPromoCode))
 						<p class="card-text text-right">- RM <?php echo $discountAmount;?></p>
 						<p class="card-text text-right" style="font-weight: bold;">RM <?php echo $afterDiscount;?></p>
 						@else

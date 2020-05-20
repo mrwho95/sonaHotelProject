@@ -104,7 +104,7 @@ class roomDetailsController extends Controller
             }else{
                 $promoCodeData = DB::table('promocodes')->where('code', $userInputPromoCode)->first();
                 $promoCodeData = json_decode(json_encode($promoCodeData), true);
-
+                $arr['userInputPromoCode'] = $userInputPromoCode;
                 $discountRate = $promoCodeData['discount'];
                 $discountAmount = bcmul($totalAmount, $discountRate, 2);
                 $totalAmount = bcsub($totalAmount, $discountAmount, 2);
@@ -136,20 +136,30 @@ class roomDetailsController extends Controller
 
         $promoCodeRowData = DB::table('promocodes')->where('code', $request->input('promo_code'))->first();
         $promoCodeRowData = json_decode(json_encode($promoCodeRowData), true);
+        $expiredDate = Carbon::parse($promoCodeRowData['expired'])->format('Y-m-d');
+        $today = Carbon::today()->format('Y-m-d');
+
         if (in_array($request->input('promo_code'), $promoCodesColumnData)){
-            if ($promoCodeRowData['availability'] > 0) {
+            if ($promoCodeRowData['availability'] > 0 && $today <= $expiredDate) {
                 DB::table('customer_promo_codes')->updateOrInsert(
                 ['user_id' => Auth::id()],
                 ['user_id' => Auth::id(), 'code'=>$request->promo_code, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
                 return redirect()->route('roomReserve', $id)->with('success', 'Enjoy our promo discount.');
-            }else{
+            }elseif($promoCodeRowData['availability'] <= 0){
+
                 DB::table('customer_promo_codes')->updateOrInsert(
                 ['user_id' => Auth::id()],
                 ['user_id' => Auth::id(), 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
-                return redirect()->route('roomReserve', $id)->with('error', 'Sorry, this promo code is reached out.');
+                return redirect()->route('roomReserve', $id)->with('warning', 'Sorry, this promo code is reached out.');
+            }elseif($today > $expiredDate){
+                DB::table('customer_promo_codes')->updateOrInsert(
+                ['user_id' => Auth::id()],
+                ['user_id' => Auth::id(), 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                );
+                return redirect()->route('roomReserve', $id)->with('warning', 'Sorry, this promo code is expired already.');
             }
         }elseif (empty($request->input('promo_code'))) {
             DB::table('customer_promo_codes')->updateOrInsert(
@@ -157,7 +167,7 @@ class roomDetailsController extends Controller
                 ['user_id' => Auth::id(), 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
-            return redirect()->route('roomReserve', $id)->with('error', 'No promo code is inserted.');
+            return redirect()->route('roomReserve', $id)->with('warning', 'No promo code is inserted.');
 
         }else{
             DB::table('customer_promo_codes')->updateOrInsert(
@@ -165,7 +175,7 @@ class roomDetailsController extends Controller
                 ['user_id' => Auth::id(), 'code'=>$request->promo_code, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
-            return redirect()->route('roomReserve', $id)->with('error', 'Invalid Promo code.');
+            return redirect()->route('roomReserve', $id)->with('warning', 'Invalid Promo code.');
 
         }
     }
