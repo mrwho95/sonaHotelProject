@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\room;
 use App\Charts\RoomChart;
 use App\customerorder;
+use App\customerReview;
 
 
 class dashboardController extends Controller
@@ -22,24 +23,35 @@ class dashboardController extends Controller
     	$customerOrder = customerorder::all();
         $customerOrder = json_decode(json_encode($customerOrder), true);
 
-        $data = DB::table('customerorders')->pluck('room_id')->all();
-        $data = array_count_values($data);
+        $orderData = DB::table('customerorders')->pluck('room_id')->all();
+        $orderData = array_count_values($orderData);
+
+        $reviewData = customerReview::all();
+        $reviewData = json_decode(json_encode($reviewData), true);
 
     	$roomDataset = room::all();
     	$roomDataset = json_decode(json_encode($roomDataset), true);
 
         $array = array(
             'roomName' => '',
-            'data' => 0
+            'data' => 0,
+            'satisfaction' => 0
         );
     	foreach ($roomDataset as $key => $value) {
 
     		$array['roomName'] = $value['name'];
             $dataset[$value['id']] = $array;
 
-            foreach ($data as $key2 => $value2) {
+            foreach ($orderData as $key2 => $value2) {
                 if ($value['id'] == $key2) {
                     $dataset[$value['id']]['data'] = $value2;
+                }
+                continue;
+            }
+
+            foreach ($reviewData as $key3 => $value3) {
+                if ($value['name'] == $value3['room_name']) {
+                    $dataset[$value['id']]['satisfaction'] = $value3['rating']; 
                 }
                 continue;
             }
@@ -47,15 +59,20 @@ class dashboardController extends Controller
 
         foreach ($dataset as $key => $value) {
             $xAxis[] = $value['roomName'];
-            $yAxis[] = $value['data'];
+            $yAxis_1[] = $value['data'];
+            $yAxis_2[] = $value['satisfaction'];
         }
         
-    	$chart = new RoomChart;
-    	$chart->labels($xAxis);
-    	$chart->dataset('Room Booking', 'bar', $yAxis)->backgroundColor('#ffb3ff');
+    	$barchart_1 = new RoomChart;
+    	$barchart_1->labels($xAxis);
+    	$barchart_1->dataset('Room Booking', 'bar', $yAxis_1)->backgroundColor('#ffb3ff');
     	// $chart->dataset('My dataset 2', 'bar', );
 
-    	return view('admin.dashboard', compact('chart'));
+        $barchart_2 = new RoomChart;
+        $barchart_2->labels($xAxis);
+        $barchart_2->dataset('Customer Satisfaction', 'bar', $yAxis_2)->backgroundColor('#42f5d1');
+
+    	return view('admin.dashboard', compact('barchart_1', 'barchart_2'));
 
     }
 }
