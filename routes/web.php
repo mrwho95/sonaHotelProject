@@ -86,6 +86,12 @@ Route::resource('contactcustomer', 'User\contactCustomerController');
 
 Route::get('/adminDashboard', 'Admin\dashboardController@index')->name('adminDashboard');
 
+Route::get('/adminCustomerReview', 'Admin\customerController@review')->name('adminCustomerReview');
+
+Route::get('/deleteReview/{id}', 'Admin\customerController@deleteReview')->name('deleteReview');
+
+Route::get('/adminCustomerContact', 'Admin\customerController@contact')->name('adminCustomerContact');
+
 Route::resource('/adminCustomer', 'Admin\customerController');
 
 Route::resource('adminEditRoom', 'Admin\RoomController');

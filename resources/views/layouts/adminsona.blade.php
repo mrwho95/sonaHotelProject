@@ -13,6 +13,10 @@
 
     <!-- datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+    <!-- rating -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     
     <!-- chartJs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
@@ -138,7 +142,6 @@
                                 <div class="flag-dropdown">
                                     <ul>
                                         <li><a href="{{route('profile')}}">My Profile</a></li>
-                                        <li><a href="{{route('myBooking')}}">My Bookings</a></li>
                                         <li><a href="#">Inbox</a></li>
                                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -173,6 +176,7 @@
                                     <!-- request::is('') == url pattern -->
                                     <!-- request::routeIs('') == route name pattern-->
                                     <li class="{{ Request::is('adminDashboard*') ? 'active' : '' }}"><a href="{{route('adminDashboard')}}">Dashboard</a></li>
+                                    <li class="{{ Request::routeIs('promotion') ? 'active' : '' }}"><a href="{{route('promotion')}}">Promotion</a></li>
                                     <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Room</a>
                                         <ul class="dropdown">
                                             <li class="{{ Request::is('adminEditRoom*') ? 'active' : '' }}"><a href="{{route('adminEditRoom.index')}}">Overview</a></li>
@@ -183,9 +187,15 @@
                                         <ul class="dropdown">
                                             <li class="{{ Request::is('adminCustomer*') ? 'active' : '' }}"><a href="{{route('adminCustomer.index')}}">Overview</a></li>
                                             <li class="{{ Request::routeIs('adminCustomerBooking') ? 'active' : '' }}"><a href="{{route('adminCustomerBooking')}}">Booking</a></li>
+                                            <li class="{{ Request::routeIs('adminCustomerReview') ? 'active' : '' }}"><a href="{{route('adminCustomerReview')}}">Review</a></li>
                                         </ul>
                                     </li>
-                                    <li class="{{ Request::routeIs('promotion') ? 'active' : '' }}"><a href="{{route('promotion')}}">Promotion</a></li>
+                                    <li class="{{ Request::is('adminCustomerContact*') ? 'active' : '' }}"><a href="{{route('adminCustomerContact')}}">Pages</a>
+                                        <ul class="dropdown">
+                                            <li class="{{ Request::is('adminCustomerContact*') ? 'active' : '' }}"><a href="{{route('adminCustomerContact')}}">Customer's Contact</a></li>
+                                            <!-- <li class="{{ Request::routeIs('addDataIndex') ? 'active' : '' }}"><a href="{{route('addDataIndex')}}">Add Room</a></li> -->
+                                        </ul>
+                                    </li>
                                     <!-- <li class="{{ Request::is('blog_details*') ? 'active' : '' }}"><a href="{{route('blog_details')}}">Pages</a>
                                         <ul class="dropdown">
                                             <li class="{{ Request::is('blog_details*') ? 'active' : '' }}"><a href="{{route('blog_details')}}">Blog Details</a></li>
@@ -306,6 +316,22 @@
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+
+        $(function(){
+            $(".rateyo").rateYo().on("rateyo.change", function (e, data){
+                var rating = data.rating;
+                $(this).parent().find('.score').text('score: '+$(this).attr('data-rateyo-score'));
+                $(this).parent().find('.result').text(rating);
+                $(this).parent().find('input[name = rating]').val(rating);
+            });
+        });
+    </script>
+
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 
 
@@ -350,4 +376,36 @@
         });
 
     });
+
+    $(document).ready(function(){
+
+        $('#userContact_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('adminCustomerContact') }}",
+            },
+            columns: [
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'message',
+                name: 'message'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false
+            }
+            ]
+        });
+
+    });
 </script>
+

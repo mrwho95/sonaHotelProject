@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\User;
+use App\customerReview;
+use App\contactcustomer;
 
 class customerController extends Controller
 {
@@ -29,6 +32,34 @@ class customerController extends Controller
                     ->make(true);
         }
         return view('admin.customer');
+    }
+
+    public function review(){
+        // $arr['reviewData'] = customerReview::all();
+        $arr['reviewData'] = DB::table('customer_reviews')->orderBy('created_at', 'desc')->paginate(10);
+        $arr['user'] = User::where('is_admin', 0)->get();
+        return view('admin.review', $arr);
+    }
+
+    public function deleteReview($id){
+        customerReview::destroy($id);
+        return redirect()->route('adminCustomerReview')->with('success', "Successfully Deleted");
+    }
+
+    public function contact(Request $request){
+        if($request->ajax())
+        {
+            $data = contactcustomer::all();
+            return DataTables::of($data)
+                    ->addColumn('action', function($data){
+                        $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-warning btn-sm">Edit</button>';
+                        $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        return view('admin.contact');
     }
 
     /**
