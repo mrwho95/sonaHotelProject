@@ -10,6 +10,20 @@
 			</button>
 		</div>
 	@endif
+    <div class="table-responsive">
+        <table id="promo_table" class="table table-bordered table-striped" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Discount</th>
+                    <th>Expired</th>
+                    <th>Availability</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table><br>    
+    </div>
 	<form action="{{route('promotion.store')}}" class="contact-form" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
@@ -40,7 +54,7 @@
             <div class="col-lg-6">
             	<i class="icon_calendar"></i>
 	            <label for="expired">Expired At:</label>
-	            <input type="text" class="date-input @if($errors->has('expired')) is-invalid border-danger @endif" id="expired" name="expired" value="<?php echo date('d/m/Y')?>">
+	            <input type="text" class="date-input @if($errors->has('expired')) is-invalid border-danger @endif" id="expired" name="expired" value="<?php echo date('Y-m-d')?>">
 	            
 	            @if($errors->has('expired'))
 	                <span class="text-danger"><small>{{$errors->first('expired')}}</small></span>

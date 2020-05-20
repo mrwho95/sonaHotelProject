@@ -407,5 +407,44 @@
         });
 
     });
+
+    $(document).ready(function(){
+
+        $('#promo_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('promotion') }}",
+            },
+            columns: [
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'code',
+                name: 'code'
+            },
+            {
+                data: 'discount',
+                name: 'discount'
+            },
+            {
+                data: 'expired',
+                name: 'expired'
+            },
+            {
+                data: 'availability',
+                name: 'availability'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false
+            }
+            ]
+        });
+
+    });
 </script>
 

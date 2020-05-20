@@ -98,7 +98,7 @@ Route::resource('adminEditRoom', 'Admin\RoomController');
 
 Route::get('/adminAddRoomData', 'Admin\RoomController@addDataIndex')->name('addDataIndex');
 
-Route::get('/adminAddPromotion', 'Admin\promoCodeController@index')->name('promotion');
+Route::get('/adminPromotion', 'Admin\promoCodeController@index')->name('promotion');
 
 Route::post('/adminPromotionProcess', 'Admin\promoCodeController@store')->name('promotion.store');
 
