@@ -7,6 +7,7 @@ use App\room;
 use App\User;
 use Auth;
 use App\customersearch;
+use App\device_user;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -124,12 +125,12 @@ class HomeController extends Controller
         }else{
             $ip=$_SERVER['REMOTE_ADDR'];
 
-            DB::table('device_users')->updateOrInsert(
+            device_user::updateOrCreate(
                 ['remoteAddress' => $ip],
                 ['name' => 'anonymous', 'dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
-            $searchData = DB::table('device_users')->where('remoteAddress', $ip)->first();
+            $searchData = device_user::where('remoteAddress', $ip)->first();
             $searchData = json_decode(json_encode($searchData), true);
             $array['arr'] = $searchData;
             $array['arr']['dateIn']=Carbon::parse($request->input('dateIn'))->format('d-m-Y');

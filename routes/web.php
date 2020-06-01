@@ -66,9 +66,6 @@ Route::get('/creditCardPayment/{id}', 'User\paymentController@creditCard')->name
 
 // Route::get('/creditCardPayment', 'User\paymentController@creditCard')->name('creditCard');
 
-
-Route::get('/contactcustomer', 'User\contactCustomerController@index')->name('contactcustomer');
-
 // Route::get('/contactcustomer/details/{id}', 'User\contactCustomerController@details')->name('contactcustomerdetails');
 
 Route::get('/room_details', 'HomeController@roomDetails')->name('room_details');

@@ -17,7 +17,7 @@ class promoCodeController extends Controller
     public function index(promocode $promocode, Request $request){
 		// $promoData = promocode::all();
 
-		$promoCodes = DB::table('promocodes')->pluck('code');
+		$promoCodes = promocode::pluck('code');
 		$promoCodes = json_decode(json_encode($promoCodes), true);
 
     	if (in_array($request->input('promo_code'), $promoCodes)) {

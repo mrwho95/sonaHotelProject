@@ -194,7 +194,8 @@
                     <div class="card">
                         <div class="booking-form">
                             <h3>Booking Your Hotel</h3>
-                            <form action="{{route('searchRooms')}}" method="POST">
+                            <form action="{{route('roomDetails', $room->id)}}" method="POST">
+                                @method('GET')
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="check-date">
                                     <label for="date-in">Check In:</label>
