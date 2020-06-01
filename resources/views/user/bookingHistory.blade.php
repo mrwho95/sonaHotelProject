@@ -14,10 +14,10 @@
 	@endif
 
 	@if(!empty($pendingOrderDataset))
-		<h4>Pending</h4>
+		<h4>Pending</h4><br>
 		@foreach($pendingOrderDataset as $value)
-			<div class="card">
-				<div class="row ">
+			<div class="shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="row">
 					<div class="col-lg-5">
 						<div id="carouselExampleControls_{{$value['roomId']}}" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
@@ -86,7 +86,7 @@
 		<hr>
 		<h4>Approved</h4><br>
 		@foreach($comfirmOrderDataset as $value)
-			<div class="card">
+			<div class="shadow-lg p-3 mb-5 bg-white rounded">
 				<div class="row ">
 					<div class="col-lg-5">
 						<div id="carouselExampleControls_{{$value['roomId']}}" class="carousel slide" data-ride="carousel">
@@ -157,7 +157,7 @@
 		<hr>
 		<h4>Rejected</h4><br>
 		@foreach($rejectOrderDataset as $value)
-			<div class="card">
+			<div class="shadow-lg p-3 mb-5 bg-white rounded">
 				<div class="row ">
 					<div class="col-lg-5">
 						<div id="carouselExampleControls_{{$value['roomId']}}" class="carousel slide" data-ride="carousel">

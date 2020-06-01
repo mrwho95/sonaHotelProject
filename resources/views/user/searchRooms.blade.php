@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-lg-8">
 			@foreach($data as $value)
-			<div class="card">
+			<div class="shadow p-3 mb-5 bg-white rounded">
 				<div class="row ">
 					<div class="col-lg-5">
 						<div id="carouselExampleControls_{{$value->id}}" class="carousel slide" data-ride="carousel">
@@ -36,9 +36,11 @@
 					<div class="col-lg-7 px-3">
 						<div class="card-block px-3">
 							<h4 class="card-title">{{$value->name}}</h4>
-							<p class="card-text">{{$value->price}} MYR /Per Night</p>
-							<p class="card-text">{{$value->size}}</p>
-							<p class="card-text">{{$value->service}}</p>
+							<p class="card-text"><i class="fa fa-money" aria-hidden="true"></i> {{$value->price}} MYR /Per Night</p>
+							<p class="card-text"><i class="fa fa-bed" aria-hidden="true"></i>
+ 							{{$value->size}}</p>
+							<p class="card-text"><i class="fa fa-check" aria-hidden="true"></i>
+ 							{{$value->service}}</p>
 							<a href="{{route('roomDetails', $value->id)}}" class="btn btn-info">Interest</a>
 						</div>
 					</div>
