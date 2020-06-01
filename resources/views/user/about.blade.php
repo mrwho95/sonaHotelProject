@@ -138,6 +138,14 @@
     <!-- Contact Section Begin -->
     <section class="contact-section spad">
         <div class="container">
+             @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{session('success')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><br>
+            @endif
             <div class="row">
                 <div class="col-lg-4">
                     <div class="contact-text">
@@ -165,19 +173,28 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>       
                 <div class="col-lg-7 offset-lg-1">
                     <form action="{{route('contactcustomer.store')}}" class="contact-form" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row">
+                            @if(!empty($userData))
                             <div class="col-lg-6">Name:
-                                <input type="text" name="name" placeholder="Your Name">
+                                <input type="text" class="form-control" name="name" placeholder="Your Name" value="{{$userData['name']}}">
                             </div>
                             <div class="col-lg-6">Email:
-                                <input type="text" name="email" placeholder="Your Email">
+                                <input type="text" class="form-control" name="email" placeholder="Your Email" value="{{$userData['email']}}">
                             </div>
+                            @else
+                            <div class="col-lg-6">Name:
+                                <input type="text" class="form-control" name="name" placeholder="Your Name" required="">
+                            </div>
+                            <div class="col-lg-6">Email:
+                                <input type="text" class="form-control" name="email" placeholder="Your Email" required>
+                            </div>
+                            @endif
                             <div class="col-lg-12">Message:
-                                <textarea type="text" placeholder="Your Message" name="message"></textarea>
+                                <textarea type="text" placeholder="Your Message" name="message" required></textarea>
                                 <button type="submit">Submit Now</button>
                             </div>
                         </div>

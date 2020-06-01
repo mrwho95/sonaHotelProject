@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\contactcustomer; //model name
+use App\user;
+use Auth;
 
 class contactCustomerController extends Controller
 {   
@@ -25,8 +27,14 @@ class contactCustomerController extends Controller
      */
     public function index()
     {
-        $arr['message'] = contactcustomer::all(); //model name
-        return view('user.test', $arr);
+         if (Auth::check()) {
+            $arr['userData'] = user::find(Auth::id());
+            // $userData = json_decode(json_encode($userData), true);
+            // print_r($userData);
+            return view('user.about', $arr);
+        }else{
+            return view('user.about');
+        }
     }
 
     // public function details($id)
@@ -59,11 +67,18 @@ class contactCustomerController extends Controller
         // echo $request->message;
         //$request is from frontend <input name="email">
         //$contactcustomer is a model, so behind of it will be the db table parameter name. Save it and redirect to specific pages
-        $contactcustomer->name = $request->name;
-        $contactcustomer->email = $request->email;
-        $contactcustomer->message = $request->message;
-        $contactcustomer->save();
-        return redirect()->route('contactcustomer.index');
+        // $contactcustomer->name = $request->name;
+        // // $contactcustomer->email = $request->email;
+        // $contactcustomer->message = $request->message;
+        // $contactcustomer->save();
+        // return redirect()->route('contactcustomer.index');
+
+         contactcustomer::updateOrCreate(
+                ['email' => $request->email],
+                ['name' => $request->name, 'email'=> $request->email, 'message'=> $request->message, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                );
+        return redirect()->route('contactcustomer.index')->with('success', 'Successful to submit your message.');
+
     }
 
     /**

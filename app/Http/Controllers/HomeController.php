@@ -30,14 +30,21 @@ class HomeController extends Controller
     public function index()
     {
 
-        $room = DB::table('rooms')->get();
+        $room = room::all();
         $array['room'] = $room;
         return view('user.home', $array);
     }
 
     public function about()
     {
-        return view('user.about');
+        if (Auth::check()) {
+            $arr['userData'] = user::find(Auth::id());
+            // $userData = json_decode(json_encode($userData), true);
+            // print_r($userData);
+            return view('user.about', $arr);
+        }else{
+            return view('user.about');
+        }
     }
 
     public function pages()
@@ -47,7 +54,7 @@ class HomeController extends Controller
 
     public function rooms()
     {
-        $room = DB::table('rooms')->get();
+        $room = room::all();
         $array['room'] = $room;
 
         $array['data'] = room::paginate(3);
@@ -103,12 +110,12 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             if ($request->input('dateIn')) {
-                  DB::table('customersearches')->updateOrInsert(
+                customersearch::updateOrCreate(
                 ['user_id' => Auth::id()],
                 ['dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'range'=>$durationOfDate, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
                 );
 
-                $searchData = DB::table('customersearches')->where('user_id', Auth::id())->first();
+                $searchData = customersearch::where('user_id', Auth::id())->first();
                 $searchData = json_decode(json_encode($searchData), true);
                 $array['arr'] = $searchData;
                 $array['arr']['dateIn']=Carbon::parse($request->input('dateIn'))->format('d-m-Y');
