@@ -7,6 +7,7 @@ use App\room;
 use App\User;
 use Auth;
 use App\customersearch;
+use App\customerorder;
 use App\device_user;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -29,7 +30,19 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+        if (Auth::check()) {
+            $today = Carbon::now()->format('Y-m-d');
+            $data = customerorder::whereDate('check_out', '<', $today)->get();
+            $data = json_decode(json_encode($data), true);
+            foreach ($data as $key => $value) {
+                if ($value['status'] == "Approve") {
+                    customerorder::where('id', $value['id'])->update(['status' => "Completed"]);
+                }else{
+                    customerorder::where('id', $value['id'])->update(['status' => "Passed"]);
+                }
+            }
+        }
 
         $room = room::all();
         $array['room'] = $room;
