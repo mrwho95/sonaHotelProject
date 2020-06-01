@@ -6,7 +6,7 @@
         <div class="col-lg-6">
             <h3>Admin Edit Room Data</h3>
         </div>
-        <div class="col-lg-6 ml-auto mr-3">
+        <div class="col-lg-6">
             <!-- <button type="button" class="btn btn-warning">BACK<a href="{{route('adminEditRoom.index')}}" class="btn btn-"></a></button> -->
             <a href="{{route('adminEditRoom.index')}}" class="btn btn-warning">CANCEL EDIT</a>
         </div>

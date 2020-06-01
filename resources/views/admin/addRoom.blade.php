@@ -17,7 +17,7 @@
                 @if($errors->has('name'))
                 <span class="text-danger"><small>{{$errors->first('name')}}</small></span>
                 @endif
-                <input type="text" name="name" placeholder="Promo Name" class="@if($errors->has('name')) is-invalid border-danger @endif">
+                <input type="text" name="name" placeholder="Room Name" class="@if($errors->has('name')) is-invalid border-danger @endif">
             </div>
             <div class="col-lg-4">Price:
                 @if($errors->has('price'))
