@@ -2,8 +2,11 @@
 @section('content')
 
 <div class="container">
+	@if(!empty($pendingOrderDataset) || !empty($comfirmOrderDataset) || !empty(rejectOrderDataset))
 	<h3 style="font-weight: bold;">My Booking History</h3><br>
-	
+	@else
+	<h3 style="font-weight: bold;">No Booking History Record</h3><br>
+	@endif
 	@if(session('success'))
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('success')}}
