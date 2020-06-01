@@ -48,7 +48,7 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, room $room, roomCharge $roomcharge)
+    public function store(Request $request, room $room, roomcharge $roomCharge)
     {
         //
         $this->validate($request, [
@@ -102,11 +102,17 @@ class RoomController extends Controller
         $serviceTaxAmount = bcmul($temp_1, $serviceTaxRate, 2);
         $totalAmount = bcadd($temp_1, $serviceTaxAmount, 2);
 
-        $roomId = DB::table('rooms')->where('name', $request->name)->value('id');
+        $roomId = room::where('name', $request->name)->value('id');
 
-        DB::table('roomcharges')->insert(
-            ['room_id' => $roomId, 'price' => $price, 'service_charge_rate' => $serviceChargeRate, 'service_charge' => $serviceChargeAmount, 'service_tax_rate' => $serviceTaxRate, 'service_tax' => $serviceTaxAmount, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
-        );
+        $roomCharge->room_id = $roomId;
+        $roomCharge->price = $price;
+        $roomCharge->service_charge_rate = $serviceChargeRate;
+        $roomCharge->service_charge = $serviceChargeAmount;
+        $roomCharge->service_tax_rate = $serviceTaxRate;
+        $roomCharge->service_tax = $serviceTaxAmount;
+        $roomCharge->total_amount = $totalAmount;
+        $roomCharge->save();
+
         return redirect()->route('adminEditRoom.index')->with('success', "New ".$room->name." data is added");
     }
 
@@ -197,7 +203,7 @@ class RoomController extends Controller
         $serviceTaxAmount = bcmul($temp_1, $serviceTaxRate, 2);
         $totalAmount = bcadd($temp_1, $serviceTaxAmount, 2);
 
-        DB::table('roomcharges')->updateOrInsert(
+        roomcharge::updateOrCreate(
             ['room_id' => $id],
             ['price' => $price, 'service_charge_rate' => $serviceChargeRate, 'service_charge' => $serviceChargeAmount, 'service_tax_rate' => $serviceTaxRate, 'service_tax' => $serviceTaxAmount, 'room_id'=> $id, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
         );

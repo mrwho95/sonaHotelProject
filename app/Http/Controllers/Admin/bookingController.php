@@ -10,6 +10,7 @@ use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\hotelinfo;
 
 class bookingController extends Controller
 {
@@ -24,7 +25,7 @@ class bookingController extends Controller
     	$arr['customerOrder'] = $customerOrder;
     	$customerOrder = json_decode(json_encode($customerOrder), true);
 
-    	$hotelInfo = DB::table('hotelinfos')->get();
+    	$hotelInfo = hotelinfo::all();
     	$hotelInfo = json_decode(json_encode($hotelInfo), true);
     	foreach ($hotelInfo as $key => $hotelData) {
     		$hotelName = $hotelData['name'];
@@ -94,14 +95,14 @@ class bookingController extends Controller
 
     public function bookingApprove($id){
 
-        $Approve = DB::table('customerorders')->where('id', $id)->update(['status' => "Approve"]);
+        $Approve = customerorder::where('id', $id)->update(['status' => "Approve"]);
 
     	return redirect()->route('adminCustomerBooking')->with('success', 'Booking order is approved.');
     }
 
     public function bookingReject($id){
 
-        $Reject = DB::table('customerorders')->where('id', $id)->update(['status' => "Reject"]);
+        $Reject = customerorder::where('id', $id)->update(['status' => "Reject"]);
 
     	return redirect()->route('adminCustomerBooking')->with('warning', 'Booking order is rejected.');
     }

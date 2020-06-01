@@ -40,7 +40,7 @@ class customerController extends Controller
 
     public function review(){
         // $arr['reviewData'] = customerReview::all();
-        $arr['reviewData'] = DB::table('customer_reviews')->orderBy('created_at', 'desc')->paginate(10);
+        $arr['reviewData'] = customerReview::orderBy('created_at', 'desc')->paginate(10);
         $arr['user'] = User::where('is_admin', 0)->get();
         return view('admin.review', $arr);
     }
@@ -129,6 +129,7 @@ class customerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // User::destroy($id);
+        // return redirect()->route('adminCustomerReview')->with('success', "Successfully Deleted");
     }
 }
