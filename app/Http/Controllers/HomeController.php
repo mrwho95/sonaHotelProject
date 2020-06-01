@@ -113,7 +113,7 @@ class HomeController extends Controller
             if ($request->input('dateIn')) {
                 customersearch::updateOrCreate(
                 ['user_id' => Auth::id()],
-                ['dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::user()->id, 'range'=>$durationOfDate, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night, 'guest'=>$request->guest, 'user_id' => Auth::id(), 'range'=>$durationOfDate]
                 );
 
                 $searchData = customersearch::where('user_id', Auth::id())->first();
@@ -127,7 +127,7 @@ class HomeController extends Controller
 
             device_user::updateOrCreate(
                 ['remoteAddress' => $ip],
-                ['name' => 'anonymous', 'dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['name' => 'anonymous', 'dateIn' => $dateIn, 'dateOut'=> $dateOut, 'duration'=> $night,'range'=>$durationOfDate, 'guest'=>$request->guest,'remoteAddress' => $ip]
                 );
 
             $searchData = device_user::where('remoteAddress', $ip)->first();

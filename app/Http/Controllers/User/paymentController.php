@@ -19,8 +19,8 @@ class paymentController extends Controller
 
     public function creditCard($id){
 
-    	$arr['roomPrice'] = DB::table('customer_room_prices')->where([['user_id', Auth::id()], ['room_id', $id]])->first();
-    	$arr['searchData'] = DB::table('customersearches')->where('user_id', Auth::id())->first();
+    	$arr['roomPrice'] = customerRoomPrice::where([['user_id', Auth::id()], ['room_id', $id]])->first();
+    	$arr['searchData'] = customersearch::where('user_id', Auth::id())->first();
 
     	return view('user.creditCard', $arr);
     }

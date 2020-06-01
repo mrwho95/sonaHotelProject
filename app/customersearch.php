@@ -12,6 +12,6 @@ class customersearch extends Model
      *
      * @var array
      */
-    protected $fillable = ['dateIn', 'dateOut', 'duration', 'range', 'guest'];
+    protected $fillable = ['dateIn', 'dateOut', 'duration', 'user_id','range', 'guest'];
 
 }

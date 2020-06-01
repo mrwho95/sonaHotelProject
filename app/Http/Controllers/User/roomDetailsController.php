@@ -139,7 +139,7 @@ class roomDetailsController extends Controller
 
                customerRoomPrice::updateOrCreate(
                 ['user_id' => Auth::id()],
-                ['user_id' => Auth::id(), 'room_id'=> $id, 'price_amount'=>$roomPriceBeforeTaxAndService, 'service_charge_amount'=> $serviceChargeAmount, 'service_tax_amount' => $serviceTaxAmount, 'promo_amount'=> '0', 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['user_id' => Auth::user()->id, 'room_id'=> $id, 'price_amount'=>$roomPriceBeforeTaxAndService, 'service_charge_amount'=> $serviceChargeAmount, 'service_tax_amount' => $serviceTaxAmount, 'promo_amount'=> '0', 'total_amount'=> $totalAmount]
                 );
             }else{
                 $promoCodeData = promocode::where('code', $userInputPromoCode)->first();
@@ -153,7 +153,7 @@ class roomDetailsController extends Controller
 
                 customerRoomPrice::updateOrCreate(
                 ['user_id' => Auth::id()],
-                ['user_id' => Auth::id(), 'room_id'=> $id, 'price_amount'=>$roomPriceBeforeTaxAndService, 'service_charge_amount'=> $serviceChargeAmount, 'service_tax_amount' => $serviceTaxAmount, 'promo_amount'=> $discountAmount, 'total_amount'=> $totalAmount, 'created_at'=>date('Y-m-d H:i:s'), 'updated_at'=>date('Y-m-d H:i:s')]
+                ['user_id' => Auth::id(), 'room_id'=> $id, 'price_amount'=>$roomPriceBeforeTaxAndService, 'service_charge_amount'=> $serviceChargeAmount, 'service_tax_amount' => $serviceTaxAmount, 'promo_amount'=> $discountAmount, 'total_amount'=> $totalAmount]
                 );
             }
             $arr['roomPrice'] = $roomPriceBeforeTaxAndService;

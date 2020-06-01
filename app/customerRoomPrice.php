@@ -12,5 +12,5 @@ class customerRoomPrice extends Model
      *
      * @var array
      */
-    protected $fillable = ['price_amount', 'service_charge_amount', 'service_tax_amount', 'promo_amount', 'total_amount'];
+    protected $fillable = ['user_id', 'room_id','price_amount', 'service_charge_amount', 'service_tax_amount', 'promo_amount', 'total_amount'];
 }
