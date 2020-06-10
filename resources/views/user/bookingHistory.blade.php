@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-	@if(!empty($pendingOrderDataset) || !empty($comfirmOrderDataset) || !empty(rejectOrderDataset))
+	@if(!empty($pendingOrderDataset) || !empty($comfirmOrderDataset) || !empty($rejectOrderDataset))
 	<h3 style="font-weight: bold;">My Booking History</h3><br>
 	@else
 	<h3 style="font-weight: bold;">No Booking History Record</h3><br>
