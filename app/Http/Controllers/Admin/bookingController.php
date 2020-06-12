@@ -20,9 +20,9 @@ class bookingController extends Controller
     }
 
     public function index(customerorder $customerOrder, room $room, User $user){
-    	$customerOrder = customerorder::paginate(5);
+    	$customerOrder = customerorder::all();
         // $customerOrder = customerorder::where('status', 'pending')->paginate(5);
-    	$arr['customerOrder'] = $customerOrder;
+    	// $arr['customerOrder'] = $customerOrder;
     	$customerOrder = json_decode(json_encode($customerOrder), true);
 
     	$hotelInfo = hotelinfo::all();
@@ -35,7 +35,7 @@ class bookingController extends Controller
     	}
 
     	$orderDataset = array();
-    	foreach ($customerOrder['data'] as $key => $orderValue) {
+    	foreach ($customerOrder as $key => $orderValue) {
 
     		$room = room::find($orderValue['room_id']);
     		$room = json_decode(json_encode($room), true);

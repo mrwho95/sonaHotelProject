@@ -87,8 +87,7 @@
 				</div>
 			</div><br>
 		@endforeach	
-			<!-- pagination -->
-		{{$customerOrder->links()}}
+
 	@endif
 	
 	
@@ -157,8 +156,7 @@
 				</div>
 			</div><br>
 		@endforeach	
-			<!-- pagination -->
-		{{$customerOrder->links()}}
+
 	@endif
 	
 
@@ -227,8 +225,6 @@
 				</div>
 			</div><br>
 		@endforeach	
-			<!-- pagination -->
-		{{$customerOrder->links()}}
 	@endif
 
 </div>
