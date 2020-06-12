@@ -9,6 +9,10 @@
     <meta name="keywords" content="Sona, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- browser icon -->
+    <link rel="shortcut icon" href="{{ asset('img/footer-logo.png') }}">
+
     <title>Sona Project</title>
 
     <!-- datatables -->
@@ -233,7 +237,7 @@
                     <div class="col-lg-4">
                         <div class="ft-about">
                             <div class="logo">
-                                <a href="#">
+                                <a href="{{route('home')}}">
                                     <img src="{{ asset('img/footer-logo.png') }}" alt="">
                                 </a>
                             </div>
