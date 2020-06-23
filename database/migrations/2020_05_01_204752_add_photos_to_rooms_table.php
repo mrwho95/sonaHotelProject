@@ -29,6 +29,9 @@ class AddPhotosToRoomsTable extends Migration
     {
         Schema::table('rooms', function (Blueprint $table) {
             //
+            $table->dropColumn('photo_2');
+            $table->dropColumn('photo_3');
+            $table->renameColumn('photo_1', 'photo');
         });
     }
 }
