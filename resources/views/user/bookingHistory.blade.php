@@ -81,8 +81,6 @@
 				</div>
 			</div><br>
 		@endforeach	
-		<!-- pagination -->
-		{{$customerOrder->links()}}
 	@endif
 
 	@if(!empty($comfirmOrderDataset))
@@ -152,8 +150,6 @@
 				</div>
 			</div><br>
 		@endforeach	
-		<!-- pagination -->
-		{{$customerOrder->links()}}
 	@endif
 
 	@if(!empty($rejectOrderDataset))
@@ -222,8 +218,6 @@
 				</div>
 			</div><br>
 		@endforeach	
-		<!-- pagination -->
-		{{$customerOrder->links()}}
 	@endif
 	
 </div>
